@@ -194,24 +194,24 @@ struct final_struct
 };
 
 image_data_struct image_preprocess (Mat &img)
-{
+{    printf("c1 \n");
 	image_data_struct imgdata;
-
+	printf("c2 \n");
 	Mat gray;
-//
+	printf("c3 \n");
 	vector<vector<Point> > contours;
-//
+	printf("c4 \n");
 	cvtColor(img, gray, CV_BGR2GRAY);
-//
+	printf("c5 \n");
 	threshold(img, imgdata.thres, 220, 255, THRESH_BINARY);
-//
+	printf("c6 \n");
 	cvtColor(imgdata.thres, gray, CV_BGR2GRAY);
-//
+	printf("c7 \n");
 	threshold(gray, imgdata.thres2, 0, 255, THRESH_BINARY);
-//
+	printf("c8 \n");
 	findContours(imgdata.thres2, imgdata.contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-//
-	drawContours(imgdata.thres2, imgdata.contours, -1, (128, 255, 255), 3);
+	printf("c9 \n");
+	//drawContours(imgdata.thres2, imgdata.contours, -1, (128, 255, 255), 3);
 printf("qwertyuiop!!!!!!!!!!!!!!!!!!!!!! \n");
 //	imshow("image",imgdata.thres2);
 //	waitKey(0);
@@ -328,20 +328,32 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
 final_struct judge_go_forward(Mat &img, float epsilon)
 {
 	vector<int> obstacle_position_data;
+	printf("s1 \n");
 	final_struct safe_or_not;
+	printf("s2 \n");
 	vector<float> process_data;
+	printf("s3 \n");
 	vector<int> contour_to_use;
+	printf("s4 \n");
 	vector<Point> contour_in_process;
+	printf("s5 \n");
 	image_data_struct imgdata = image_preprocess (img);//stable
-
+	printf("s6 \n");
  	safe_or_not.safeToGoForward = false;
+	printf("s7 \n");
 // 	cout << "1" << endl;
+
+	printf("imgdata.contours.size() %d\n",imgdata.contours.size());
 	for(int x = 0 ; x < imgdata.contours.size(); x++ )
-	{
+	{	printf("s8 \n");
 //		cout << "2" << endl;
 		double ret = contourArea(imgdata.contours[x]);
-		if(ret < 2000)
+		printf("ret!!!!!!!!!!!!!!!!!!!!!!! %f\n",ret);
+		printf("address!!!!!!!!!!!!!!!!!!!!!!!  %d\n",&imgdata.contours[x]);
+		printf("s9 \n");
+		if(ret < 1000)
 		{
+			printf("s2000 \n");
 //			cout << "3" << endl;
 //			// drawContours(imgdata.thres2, imgdata.contours[x], -1, (0, 0, 0), 25 );
 //			cout << "6" << endl;
@@ -350,8 +362,9 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 		{
 //			cout << "4" << endl;
 			contour_to_use.push_back(x);
+			printf("s10 \n");
 		}
-
+		printf("s4000 \n");
 //		cout << "contour_to" << endl;
 //			cout << contour_to_use.size() << endl;
 
@@ -359,7 +372,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 
 
 	}
-
+	printf("s3000 \n");
 	int  width_image = img.size().height;
 	int length_image = img.size().width;
 
@@ -378,35 +391,47 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	Point x_y_2;
 	x_y_2.x = (int)threshold_x_max;
 	x_y_2.y = 0;
+	printf("s100 \n");
 //
-	circle (img, x_y_1, 10, (255, 255, 255), -1 );
-	circle (img, x_y_2, 10, (255, 255, 255), -1 );
 
+	circle (img, x_y_1, 10, (255, 255, 255), -1 );
+	printf("s11 \n");
+	circle (img, x_y_2, 10, (255, 255, 255), -1 );
+	printf("s12 \n");
 	int p = 0;
 	int number_all_points_count = 0;
-
+	printf("contour_to_use.size() %d\n",contour_to_use.size());
 	for (int y=0 ; y < contour_to_use.size() ; y ++)
 	{
 		contour_in_process = imgdata.contours [contour_to_use[y]];
+		printf("s13 \n");
 		process_data = get_point(contour_to_use[y], imgdata.contours);
+		printf("s14 \n");
 		obstacle_position_data = draw_obstacle(process_data, img);
+		printf("s15 \n");
 		int number_obstacle = obstacle_position_data.size();
+		printf("s16 \n");
 		int where_obstacle = number_obstacle/2;
+		printf("s17 \n");
 
 		for(int q = 0; q < where_obstacle; q++)
 		{
 			int x_point = obstacle_position_data[q*2];
+			printf("s18 \n");
 			if(((float)x_point > threshold_x_min) & ((float)x_point < threshold_x_max))
 			{
 				safe_or_not.safeToGoForward = false;
+				printf("s19 \n");
 			}
 			else
 			{
 				p = p + 1;
+				printf("s20 \n");
 			}
 
 		}
 		number_all_points_count = number_all_points_count + obstacle_position_data.size()/2;
+		printf("s21 \n");
 
 //	cout << "len(obstacle_position_data)"<< obstacle_position_data.size() << endl;
 //
@@ -417,12 +442,14 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	if((p - number_all_points_count) == 0 )
 	{
 		safe_or_not.safeToGoForward = true;
+		printf("s22 \n");
 	}
 
 	}
 
 
 	safe_or_not.img=img;
+	printf("s23 \n");
 	return safe_or_not;
 }
 
@@ -431,11 +458,15 @@ void find_contour(char *img, int width, int height)
 {
   // Create a new image, using the original bebop image.
   Mat M(width, height, CV_8UC2, img); // original
+	printf("s24 \n");
   Mat image, edge_image, thresh_image;
+	printf("s25 \n");
 
   // convert UYVY in paparazzi to YUV in opencv
   cvtColor(M, M, CV_YUV2RGB_Y422);
+	printf("s26 \n");
   cvtColor(M, M, CV_RGB2YUV);
+	printf("s27 \n");
 
   // Threshold all values within the indicted YUV values.
 //  inRange(M, Scalar(cont_thres.lower_y, cont_thres.lower_u, cont_thres.lower_v), Scalar(cont_thres.upper_y,
@@ -445,6 +476,7 @@ void find_contour(char *img, int width, int height)
   //float epsilon= 0.35;
 
   final_struct safe = judge_go_forward(M,0.35);
+	printf("s28 \n");
   printf("safe.safeToGoForward \n");
  return ;
 }
