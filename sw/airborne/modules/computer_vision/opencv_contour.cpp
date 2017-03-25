@@ -198,21 +198,21 @@ image_data_struct image_preprocess (Mat &img)
 	image_data_struct imgdata;
 
 	Mat gray;
-
+//
 	vector<vector<Point> > contours;
-
+//
 	cvtColor(img, gray, CV_BGR2GRAY);
-
+//
 	threshold(img, imgdata.thres, 220, 255, THRESH_BINARY);
-
+//
 	cvtColor(imgdata.thres, gray, CV_BGR2GRAY);
-
+//
 	threshold(gray, imgdata.thres2, 0, 255, THRESH_BINARY);
-
+//
 	findContours(imgdata.thres2, imgdata.contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-
+//
 	drawContours(imgdata.thres2, imgdata.contours, -1, (128, 255, 255), 3);
-
+printf("qwertyuiop!!!!!!!!!!!!!!!!!!!!!! \n");
 //	imshow("image",imgdata.thres2);
 //	waitKey(0);
 	return imgdata;
@@ -236,13 +236,13 @@ float Variance( float samples[2])
 
 vector<float> get_point(int num_contours, std::vector<vector<Point> > contours)
 {
-	float y_value[2];
-	float pair_array[3];
+	float y_value[3];
+	float pair_array[4];
 	vector<float> points_data(0);
 	vector<float> value_y;
 //	    cout<< "sizeof" <<endl;
 //    	cout<< sizeof(contours[num_contours]) <<endl;
-	for (int y = 0; y < contours[num_contours].size() - 2; y++)
+	for (int y = 0; y < contours[num_contours].size() - 2; y++)//!!!!!!
 	{
 
 		y_value[0] = contours[num_contours][y].y;
@@ -332,7 +332,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	vector<float> process_data;
 	vector<int> contour_to_use;
 	vector<Point> contour_in_process;
-	image_data_struct imgdata = image_preprocess (img);
+	image_data_struct imgdata = image_preprocess (img);//stable
 
  	safe_or_not.safeToGoForward = false;
 // 	cout << "1" << endl;
@@ -378,7 +378,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	Point x_y_2;
 	x_y_2.x = (int)threshold_x_max;
 	x_y_2.y = 0;
-
+//
 	circle (img, x_y_1, 10, (255, 255, 255), -1 );
 	circle (img, x_y_2, 10, (255, 255, 255), -1 );
 
@@ -438,14 +438,14 @@ void find_contour(char *img, int width, int height)
   cvtColor(M, M, CV_RGB2YUV);
 
   // Threshold all values within the indicted YUV values.
-  inRange(M, Scalar(cont_thres.lower_y, cont_thres.lower_u, cont_thres.lower_v), Scalar(cont_thres.upper_y,
-          cont_thres.upper_u, cont_thres.upper_v), thresh_image);
+//  inRange(M, Scalar(cont_thres.lower_y, cont_thres.lower_u, cont_thres.lower_v), Scalar(cont_thres.upper_y,
+//          cont_thres.upper_u, cont_thres.upper_v), thresh_image);
 
   /// Find contours
-  float epsilon= 0.35;
+  //float epsilon= 0.35;
 
-  final_struct safe = judge_go_forward(M,epsilon);
-  //printf(¨safe.safeToGoForward %d\n¨,safe.safeToGoForward);
+  final_struct safe = judge_go_forward(M,0.35);
+  printf("safe.safeToGoForward \n");
  return ;
 }
 
