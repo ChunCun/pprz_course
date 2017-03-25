@@ -26,22 +26,40 @@
 #include "modules/computer_vision/cv.h"
 #include "modules/computer_vision/detect_contour.h"
 #include "modules/computer_vision/opencv_contour.h"
+#include "modules/computer_vision/lib/vision/image.h"
+
+//struct video_listener *listenerd = NULL;
+
+// Filter Settings
+//uint8_t detect_lum_min = 0;
+//uint8_t detect_lum_max = 255;
+//uint8_t detect_cb_min  = 0;
+//uint8_t detect_cb_max  = 114;
+//uint8_t detect_cr_min  = 0;
+//uint8_t detect_cr_max  = 141;
 
 // Function
+//int detect_count = 0;
 struct image_t *contour_func(struct image_t *img);
 struct image_t *contour_func(struct image_t *img)
 {
 
   if (img->type == IMAGE_YUV422) {
     // Call OpenCV (C++ from paparazzi C function)
-    find_contour((char *) img->buf, img->w, img->h);
+//	  detect_count = image_yuv422_colorfilt(img, img,
+//			  detect_lum_min, detect_lum_max,
+//			  detect_cb_min, detect_cb_max,
+//			  detect_cr_min, detect_cr_max
+//	                                      );
+   // find_contour((char *) img->buf, img->w, img->h);
+	 // find_contour((char *) img->buf, img->w, img->h);
   }
   return img;
 }
 
 void detect_contour_init(void)
 {
-  cv_add_to_device(&DETECT_CONTOUR_CAMERA, contour_func);
+	cv_add_to_device(&DETECT_CONTOUR_CAMERA, contour_func);
   // in the mavlab, bright
   cont_thres.lower_y = 16;  cont_thres.lower_u = 135; cont_thres.lower_v = 80;
   cont_thres.upper_y = 100; cont_thres.upper_u = 175; cont_thres.upper_v = 165;

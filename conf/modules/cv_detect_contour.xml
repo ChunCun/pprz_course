@@ -7,6 +7,7 @@
 
     <define name="DETECT_CONTOUR_CAMERA" value="front_camera|bottom_camera" description="Video device to use"/>
   </doc>
+  <!--depends>video_thread</depends-->
   <header>
     <file name="detect_contour.h"/>
   </header>
@@ -17,7 +18,20 @@
     <file name="opencv_image_functions.cpp"/>
     <flag name="CXXFLAGS" value="I$(PAPARAZZI_SRC)/sw/ext/opencv_bebop/install/include"/>
 
-    <flag name="LDFLAGS" value="L$(PAPARAZZI_SRC)/sw/ext/opencv_bebop/install/lib" />
+	<flag name="LDFLAGS" value="L$(PAPARAZZI_HOME)/sw/ext/opencv_bebop/install/lib" />
+	<flag name="LDFLAGS" value="lopencv_world" />
+	<flag name="LDFLAGS" value="L$(PAPARAZZI_HOME)/sw/ext/opencv_bebop/install/share/OpenCV/3rdparty/lib" />
+	<flag name="LDFLAGS" value="ltegra_hal" />
+	<flag name="LDFLAGS" value="lzlib" />
+	<flag name="LDFLAGS" value="llibjpeg" />
+	<flag name="LDFLAGS" value="llibpng" />
+	<flag name="LDFLAGS" value="llibtiff" />
+	<flag name="LDFLAGS" value="lstdc++" />
+	<flag name="LDFLAGS" value="ldl" />
+	<flag name="LDFLAGS" value="lm" />
+	<flag name="LDFLAGS" value="lpthread" />
+	<flag name="LDFLAGS" value="lrt" />
+<!--
     <flag name="LDFLAGS" value="lopencv_imgcodecs" />
     <flag name="LDFLAGS" value="lopencv_imgproc" />
     <flag name="LDFLAGS" value="lopencv_core" />
@@ -29,6 +43,6 @@
     <flag name="LDFLAGS" value="lm" />
     <flag name="LDFLAGS" value="lpthread" />
     <flag name="LDFLAGS" value="lrt" />
-
+-->
   </makefile>
 </module>

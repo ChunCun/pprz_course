@@ -1,0 +1,16 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="ground_avoider">
+  <doc>
+    <description>avoid the ground</description>
+  </doc>
+  <header>
+    <file name="ground_avoider.h"/>
+  </header>
+  <init fun="ground_avoider_init()"/>
+  <periodic fun="ground_avoider_periodic" freq="15"/>
+  <makefile target="ap">
+    <file name="ground_avoider.c"/>
+  </makefile>
+</module>
+

@@ -13,6 +13,7 @@
     <waypoint name="STDBY" x="1.9" y="1.0"/>
     <waypoint name="TD" x="0.8" y="-1.7"/>
     <waypoint name="GOAL" x="1.9" y="1.0"/>
+    <waypoint name="GOAL2" x="1.0" y="1.9"/><!--Test block -->
     <waypoint name="TRAJECTORY" x="1.9" y="1.0"/>
     <waypoint lat="51.9905836" lon="4.3767729" name="_CZ1"/>
     <waypoint lat="51.9906365" lon="4.3767138" name="_CZ2"/>
@@ -113,6 +114,16 @@
         <call_once fun="increase_nav_heading(&nav_heading, 5)"/>
       </while>
     </block>
+   <!--Test block -->
+    <block name="Hover1">
+      <call_once fun="NavSetWaypointHere(WP_GOAL)"/>
+      <stay wp="GOAL"/>
+    </block>
+    <block name="Hover2">
+      <call_once fun="NavSetWaypointHere(WP_GOAL2)"/>
+      <stay wp="GOAL2"/>
+    </block>
+   <!--Test block -->
     <block name="GetIntoObstacleZone">
       <while cond="!InsideObstacleZone(GetPosX(),GetPosY())">
         <call_once fun="moveWaypointForward(WP_GOAL, 0.1)"/>

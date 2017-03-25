@@ -22,14 +22,18 @@
 		<module name="radio_control" type="datalink" />
 		<module name="actuators" type="bebop" />
 		<module name="imu" type="bebop" />
+               <!-- gyros -->
 		<module name="gps" type="datalink" />
 
 		<module name="stabilization" type="indi">
+               <!-- INDI control -->
 			<define name="INDI_RPM_FEEDBACK" value="TRUE" />
 		</module>
 		<module name="stabilization" type="rate_indi" />
+                <!-- angle acceleration -->
 
-		<module name="ahrs" type="int_cmpl_quat">
+		<module name="ahrs" type="int_cmpl_quat"> 
+                <!-- after kalman filter -->
 			<configure name="USE_MAGNETOMETER" value="FALSE" /> <!-- TURN ON OUTSIDE -->
 			<define name="AHRS_USE_GPS_HEADING" value="TRUE" />
 		</module>
@@ -40,6 +44,8 @@
 	</firmware>
 	<modules main_freq="512">
 		<module name="geo_mag" />
+	        <module name="test_module" />
+		<!-- test -->
 		<module name="air_data" />
 		<module name="send_imu_mag_current" />
 		<module name="logger_file">
@@ -55,16 +61,22 @@
 			<define name="COLORFILTER_CAMERA" value="front_camera" />
 		</module>
 		<module name="orange_avoider" />
+
+		<module name="cv_detect_contour">
+			<define name="DETECT_CONTOUR_CAMERA" value="front_camera" />
+		</module>
+
 		<module name="video_rtp_stream">
-			<configure name="VIEWVIDEO_HOST" value="192.168.42.65" />
+			<configure name="VIEWVIDEO_HOST" value="192.168.42.23" />
 			<configure name="VIEWVIDEO_BROADCAST" value="FALSE" />
 			<define name="VIEWVIDEO_CAMERA" value="front_camera" />
 			<define name="VIEWVIDEO_SHOT_PATH" value="/data/ftp/internal_000" />
 			<define name="VIEWVIDEO_FPS" value="18" />
 			<define name="VIEWVIDEO_WRITE_VIDEO" value="FALSE" />
-			<define name="VIEWVIDEO_VIDEO_FILE" value="orangeAvoider" />
+			<define name="VIEWVIDEO_VIDEO_FILE" value="GroundAvoid2" />
 			<define name="VIEWVIDEO_STREAM_VIDEO" value="TRUE" />
 		</module>
+
 	</modules>
 
 	<commands>
