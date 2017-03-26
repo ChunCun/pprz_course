@@ -157,6 +157,8 @@ uint16_t image_yuv422_colorfilt(struct image_t *input, struct image_t *output, u
   output->ts = input->ts;
 
   // Go trough all the pixels
+  printf("colorfilter_height: %d\n",output->h);
+  printf("colorfilter_width: %d\n",output->w);
   for (uint16_t y = 0; y < output->h; y++) {
     for (uint16_t x = 0; x < output->w; x += 2) {
       // Check if the color is inside the specified values

@@ -36,24 +36,41 @@ using namespace cv;
 
 int opencv_example(char *img, int width, int height)
 {
+
+	//printf("width !!!!!!!!!!!!: %d\n",width);
+	//printf("!!!!!!!!!!!!height: %d\n",height);
   // Create a new image, using the original bebop image.
   Mat M(height, width, CV_8UC2, img);
+	//Mat M(width,height,CV_8UC2, img);
   Mat image;
   // If you want a color image, uncomment this line
    cvtColor(M, image, CV_YUV2BGR_Y422);
+   //printf("height : %d\n",image.size().height);
+   //printf("width : %d\n",image.size().width);
   // For a grayscale image, use this one
-//  cvtColor(M, image, CV_YUV2GRAY_Y422);
+  //cvtColor(M, image, CV_YUV2GRAY_Y422);
 
   // Blur it, because we can
-  blur(image, image, Size(5, 5));
-
+  //blur(image, image, Size(5, 5));
+  Point jk;
+  jk.x= 0;
+  jk.y=100;
+  circle (image, jk, 10, Scalar(255,255,0), -1 );
+  Point jl;
+  jl.x=0;
+  jl.y=500;
+  putText(image,"simple",jl,FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,255));
+  circle (image, jl, 10, Scalar(255,0,255), -1 );
   // Canny edges, only works with grayscale image
 //  int edgeThresh = 35;
 //  Canny(image, image, edgeThresh, edgeThresh * 3);
 
   // Convert back to YUV422, and put it in place of the original image
-//  grayscale_opencv_to_yuv422(image, img, width, height);
-  colorrgb_opencv_to_yuv422(image, img, width, height);
-
+  //grayscale_opencv_to_yuv422(image, img);
+//  colorrgb_opencv_to_yuv422(image, img, width, height);
+  colorrgb_opencv_to_yuv422(image, img);
   return 0;
 }
+
+
+

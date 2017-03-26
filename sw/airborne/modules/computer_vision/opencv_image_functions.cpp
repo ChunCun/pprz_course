@@ -32,7 +32,24 @@
 using namespace std;
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+//#include <opencv_contour.h>
 using namespace cv;
+
+void yuv_opencv_to_yuv422(Mat image, char *img, int width, int height)
+{
+//Turn the opencv RGB colored image back in a YUV colored image for the drone
+  for (int row = 0; row < height; row++) {
+    for (int col = 0; col < width; col++) {
+      // Extract pixel color from image
+      cv::Vec3b &c = image.at<cv::Vec3b>(row, col);
+
+      // Set image buffer values
+      int i = row * width + col;
+      img[2 * i + 1] = c[0]; // y;
+      img[2 * i] = col % 2 ? c[1] : c[2]; // u or v
+    }
+  }
+}
 
 void coloryuv_opencv_to_yuv422(Mat image, char *img)
 {
@@ -41,13 +58,16 @@ void coloryuv_opencv_to_yuv422(Mat image, char *img)
 
   int nRows = image.rows;
   int nCols = image.cols;
-
+//printf("nRows : %d\n",nRows);
+//printf("nCols : %d\n",nCols);
   // If the image is one block in memory we can iterate over it all at once!
   if (image.isContinuous()) {
     nCols *= nRows;
     nRows = 1;
-  }
 
+  }
+  printf("nRows : %d\n",nRows);
+  printf("nCols : %d\n",nCols);
   // Iterate over the image, setting only the Y value
   // and setting U and V to 127
   int i, j;
@@ -71,7 +91,8 @@ void colorrgb_opencv_to_yuv422(Mat image, char *img)
   // Convert to YUV color space
   cvtColor(image, image, COLOR_BGR2YUV);
   // then call the to color function
-  coloryuv_opencv_to_yuv422(image, img);
+  //coloryuv_opencv_to_yuv422(image, img);
+  yuv_opencv_to_yuv422(image, img,240 ,520 );
 }
 
 

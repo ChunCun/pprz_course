@@ -24,6 +24,7 @@
  * Detects contours of an obstacle used in the autonomous drone racing.
  */
 
+
 #ifndef OPENCV_CONTOUR_H
 #define OPENCV_CONTOUR_H
 
@@ -43,6 +44,8 @@ struct contour_threshold {
 
 extern struct contour_estimation cont_est;
 extern struct contour_threshold cont_thres;
+
+//extern void yuv_opencv_to_yuv422(Mat image, char *img, int width, int height);
 
 void find_contour(char *img, int width, int height);
 

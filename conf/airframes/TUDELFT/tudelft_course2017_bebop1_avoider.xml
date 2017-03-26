@@ -64,8 +64,10 @@
 
 		<module name="cv_detect_contour">
 			<define name="DETECT_CONTOUR_CAMERA" value="front_camera" />
-		</module>
-
+		</module >
+		<!--module name="cv_opencvdemo">
+			<define name="OPENCVDEMO_CAMERA" value="front_camera" />
+		</module-->
 		<module name="video_rtp_stream">
 			<configure name="VIEWVIDEO_HOST" value="192.168.42.23" />
 			<configure name="VIEWVIDEO_BROADCAST" value="FALSE" />
