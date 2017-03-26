@@ -211,7 +211,7 @@ image_data_struct image_preprocess (Mat &img)
 //
 	findContours(imgdata.thres2, imgdata.contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
 //
-	drawContours(imgdata.thres2, imgdata.contours, -1, (128, 255, 255), 3);
+	drawContours(imgdata.thres2, imgdata.contours, -1, Scalar(128, 255, 255), 3);
 printf("qwertyuiop!!!!!!!!!!!!!!!!!!!!!! \n");
 //	imshow("image",imgdata.thres2);
 //	waitKey(0);
@@ -306,13 +306,13 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
     	int var_data = (int)points_data [4*i];
 //    	cout<< "var_data" <<endl;
 //    	cout<< var_data <<endl;
-    	if (var_data > 50)
+    	if (var_data > 7)
     	{
     		//int j = 0;
     		obstacle_data.x = (int)points_data[4*(i+2) + 2];
     		obstacle_data.y = (int)points_data[4*(i+2) + 3];
   			//j++;
-    		circle (img, obstacle_data, 10, (0, 255, 255), -1 );
+    		circle (img, obstacle_data, 10, Scalar(0, 255, 255), -1 );
 
     		//obstacle_position
     		obstacle_position.push_back(obstacle_data.x);
@@ -340,7 +340,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	{
 //		cout << "2" << endl;
 		double ret = contourArea(imgdata.contours[x]);
-		if(ret < 2000)
+		if(ret < 700)
 		{
 //			cout << "3" << endl;
 //			// drawContours(imgdata.thres2, imgdata.contours[x], -1, (0, 0, 0), 25 );
@@ -379,8 +379,8 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	x_y_2.x = (int)threshold_x_max;
 	x_y_2.y = 0;
 //
-	circle (img, x_y_1, 10, (255, 255, 255), -1 );
-	circle (img, x_y_2, 10, (255, 255, 255), -1 );
+	circle (img, x_y_1, 10, Scalar(255, 255, 255), -1 );
+	circle (img, x_y_2, 10, Scalar(255, 255, 255), -1 );
 
 	int p = 0;
 	int number_all_points_count = 0;
@@ -430,12 +430,10 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 void find_contour(char *img, int width, int height)
 {
   // Create a new image, using the original bebop image.
-  Mat M(width, height, CV_8UC2, img); // original
-  Mat image, edge_image, thresh_image;
-
-  // convert UYVY in paparazzi to YUV in opencv
-  cvtColor(M, M, CV_YUV2RGB_Y422);
-  cvtColor(M, M, CV_RGB2YUV);
+	  Mat M(height, width, CV_8UC2, img);
+	  Mat image;
+	  // If you want a color image, uncomment this line
+	   cvtColor(M, image, CV_YUV2BGR_Y422);
 
   // Threshold all values within the indicted YUV values.
 //  inRange(M, Scalar(cont_thres.lower_y, cont_thres.lower_u, cont_thres.lower_v), Scalar(cont_thres.upper_y,
@@ -444,7 +442,26 @@ void find_contour(char *img, int width, int height)
   /// Find contours
   //float epsilon= 0.35;
 
-  final_struct safe = judge_go_forward(M,0.35);
+  final_struct safe = judge_go_forward(image,0.35);
+
+  Point jk;
+  jk.x=30;
+  jk.y=30;
+
+
+  if(safe.safeToGoForward == true)
+  {
+
+
+	  putText(safe.img,"True",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+  }
+  else
+  {
+	  putText(safe.img,"False",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+  }
+
+  colorrgb_opencv_to_yuv422(safe.img, img);
+
   printf("safe.safeToGoForward \n");
  return ;
 }
