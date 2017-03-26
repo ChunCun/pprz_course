@@ -62,8 +62,12 @@
 		</module>
 		<module name="orange_avoider" />
 
-		<module name="cv_detect_contour">
+		<!--module name="cv_detect_contour">
 			<define name="DETECT_CONTOUR_CAMERA" value="front_camera" />
+		</module -->
+
+        	<module name="cv_opencvdemo">
+		<define name="OPENCVDEMO_CAMERA" value="front_camera" />
 		</module>
 
 

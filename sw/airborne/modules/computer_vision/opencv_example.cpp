@@ -45,14 +45,14 @@ int opencv_example(char *img, int width, int height)
 //  cvtColor(M, image, CV_YUV2GRAY_Y422);
 
   // Blur it, because we can
-  blur(image, image, Size(5, 5));
+  //blur(image, image, Size(5, 5));
   Point jk;
-  jk.x=30;
-  jk.y=30;
-
+  jk.x=-500;
+  jk.y=-200;
+  circle (image, jk, 10, Scalar(0, 255, 255), -1 );
   Point jl;
-  jl.x=100;
-  jl.y=30;
+  jl.x=-100;
+  jl.y=-200;
   putText(image,"simple",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
   circle (image, jl, 10, Scalar(0, 255, 255), -1 );
   // Canny edges, only works with grayscale image

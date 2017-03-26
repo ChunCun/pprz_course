@@ -212,7 +212,7 @@ image_data_struct image_preprocess (Mat &img)
 	findContours(imgdata.thres2, imgdata.contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
 //
 	drawContours(imgdata.thres2, imgdata.contours, -1, Scalar(128, 255, 255), 3);
-printf("qwertyuiop!!!!!!!!!!!!!!!!!!!!!! \n");
+//printf("qwertyuiop!!!!!!!!!!!!!!!!!!!!!! \n");
 //	imshow("image",imgdata.thres2);
 //	waitKey(0);
 	return imgdata;
@@ -312,6 +312,8 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
     		obstacle_data.x = (int)points_data[4*(i+2) + 2];
     		obstacle_data.y = (int)points_data[4*(i+2) + 3];
   			//j++;
+    		printf("obstacle_data.x : %d\n",obstacle_data.x );
+    		printf("obstacle_data.y : %d\n",obstacle_data.y );
     		circle (img, obstacle_data, 10, Scalar(0, 255, 255), -1 );
 
     		//obstacle_position
@@ -360,9 +362,10 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 
 	}
 
-	int  width_image = img.size().height;
-	int length_image = img.size().width;
-
+	int  width_image = img.size().height;//520
+	int length_image = img.size().width;//width 240
+	printf("size.height : %d\n",width_image);
+	printf("size.width : %d\n",length_image);
 //	for(int k = 0; k < contour_to_use.size(); k++)
 //	{
 //		cout << "contour_to_use" << endl;
@@ -443,7 +446,7 @@ void find_contour(char *img, int width, int height)
 
   // Threshold all values within the indicted YUV values.
 //  inRange(M, Scalar(cont_thres.lower_y, cont_thres.lower_u, cont_thres.lower_v), Scalar(cont_thres.upper_y,
-//          cont_thres.upper_u, cont_thres.upper_v), thresh_image);
+//          cont_thres.upper_u, cont_thres.upper_v), image);
 
   /// Find contours
   //float epsilon= 0.35;
@@ -456,14 +459,14 @@ void find_contour(char *img, int width, int height)
 
   Point jk1;
   jk1.x=0;
-  jk1.y=530;
+  jk1.y=100;
   circle (safe.img, jk1, 10, Scalar(255, 255, 255), -1 );
   putText(safe.img,"(0,100)",jk1,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
-//  Point jk2;
-//  jk2.x=width;
-//  jk2.y=height;
-//  circle (safe.img, jk2, 10, Scalar(255, 255, 255), -1 );
-//  putText(safe.img,"(width,h)",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+  Point jk2;
+  jk2.x=100;
+  jk2.y=0;
+  circle (safe.img, jk2, 10, Scalar(255, 255, 255), -1 );
+  putText(safe.img,"(100,0)",jk2,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
 //  Point jk3;
 //  jk3.x=height;
 //  jk3.y=width;
@@ -486,16 +489,16 @@ void find_contour(char *img, int width, int height)
   {
 
 
-	  //putText(safe.img,"True",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+	  putText(safe.img,"True",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
   }
   else
   {
-	 // putText(safe.img,"False",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+	  putText(safe.img,"False",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
   }
 
   colorrgb_opencv_to_yuv422(safe.img, img);
 
-  printf("safe.safeToGoForward \n");
+ // printf("safe.safeToGoForward \n");
  return ;
 }
 
