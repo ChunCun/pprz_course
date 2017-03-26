@@ -372,13 +372,19 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 
 	float threshold_x_min = epsilon * (float)length_image;
 	float threshold_x_max = (1-epsilon) * (float)length_image;
-	Point x_y_1;
-	x_y_1.x = (int)threshold_x_min;
-	x_y_1.y = 0;
-	Point x_y_2;
-	x_y_2.x = (int)threshold_x_max;
-	x_y_2.y = 0;
+//	Point x_y_1;
+//	x_y_1.x = (int)threshold_x_min;
+//	x_y_1.y = 0;
+//	Point x_y_2;
+//	x_y_2.x = (int)threshold_x_max;
+//	x_y_2.y = 0;
 //
+	Point x_y_1;
+	x_y_1.y = (int)threshold_x_min;
+	x_y_1.x = 0;
+	Point x_y_2;
+	x_y_2.y = (int)threshold_x_max;
+	x_y_2.x = 0;
 	circle (img, x_y_1, 10, Scalar(255, 255, 255), -1 );
 	circle (img, x_y_2, 10, Scalar(255, 255, 255), -1 );
 
@@ -448,16 +454,43 @@ void find_contour(char *img, int width, int height)
   jk.x=30;
   jk.y=30;
 
+  Point jk1;
+  jk1.x=0;
+  jk1.y=530;
+  circle (safe.img, jk1, 10, Scalar(255, 255, 255), -1 );
+  putText(safe.img,"(0,100)",jk1,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+//  Point jk2;
+//  jk2.x=width;
+//  jk2.y=height;
+//  circle (safe.img, jk2, 10, Scalar(255, 255, 255), -1 );
+//  putText(safe.img,"(width,h)",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+//  Point jk3;
+//  jk3.x=height;
+//  jk3.y=width;
+//  circle (safe.img, jk3, 10, Scalar(255, 255, 255), -1 );
+//  putText(safe.img,"(h,w)",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+//
+//  Point jk4;
+//  jk4.x=100;
+//  jk4.y=200;
+//  circle (safe.img, jk4, 10, Scalar(255, 255, 255), -1 );
+//  putText(safe.img,"(100,200)",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+//
+//  Point jk5;
+//  jk5.x=200;
+//  jk5.y=100;
+//  circle (safe.img, jk5, 10, Scalar(255, 255, 255), -1 );
+//  putText(safe.img,"(200,100)",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
 
   if(safe.safeToGoForward == true)
   {
 
 
-	  putText(safe.img,"True",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+	  //putText(safe.img,"True",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
   }
   else
   {
-	  putText(safe.img,"False",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+	 // putText(safe.img,"False",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
   }
 
   colorrgb_opencv_to_yuv422(safe.img, img);
