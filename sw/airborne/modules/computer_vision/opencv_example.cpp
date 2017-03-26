@@ -46,14 +46,22 @@ int opencv_example(char *img, int width, int height)
 
   // Blur it, because we can
   blur(image, image, Size(5, 5));
+  Point jk;
+  jk.x=30;
+  jk.y=30;
 
+  Point jl;
+  jl.x=100;
+  jl.y=30;
+  putText(image,"simple",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+  circle (image, jl, 10, Scalar(0, 255, 255), -1 );
   // Canny edges, only works with grayscale image
 //  int edgeThresh = 35;
 //  Canny(image, image, edgeThresh, edgeThresh * 3);
 
   // Convert back to YUV422, and put it in place of the original image
 //  grayscale_opencv_to_yuv422(image, img, width, height);
-  colorrgb_opencv_to_yuv422(image, img, width, height);
-
+//  colorrgb_opencv_to_yuv422(image, img, width, height);
+  colorrgb_opencv_to_yuv422(image, img);
   return 0;
 }
