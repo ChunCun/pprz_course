@@ -31,18 +31,19 @@
 //struct video_listener *listenerd = NULL;
 
 // Filter Settings
-uint8_t detect_lum_min = 0;
-uint8_t detect_lum_max = 255;
-uint8_t detect_cb_min  = 0;
-uint8_t detect_cb_max  = 114;
-uint8_t detect_cr_min  = 0;
-uint8_t detect_cr_max  = 141;
+uint8_t detect_lum_min = 55;
+uint8_t detect_lum_max = 205;
+uint8_t detect_cb_min  = 52;
+uint8_t detect_cb_max  = 140;
+uint8_t detect_cr_min  = 127;
+uint8_t detect_cr_max  = 255;
 
 // Function
 int detect_count = 0;
 struct image_t *contour_func(struct image_t *img);
 struct image_t *contour_func(struct image_t *img)
 {
+	//struct image_t imgout;
 
   if (img->type == IMAGE_YUV422) {
     // Call OpenCV (C++ from paparazzi C function)
@@ -61,8 +62,8 @@ void detect_contour_init(void)
 {
 	cv_add_to_device(&DETECT_CONTOUR_CAMERA, contour_func);
   // in the mavlab, bright
-  //cont_thres.lower_y = 16;  cont_thres.lower_u = 135; cont_thres.lower_v = 80;
-  //cont_thres.upper_y = 100; cont_thres.upper_u = 175; cont_thres.upper_v = 165;
+  cont_thres.lower_y = 16;  cont_thres.lower_u = 135; cont_thres.lower_v = 80;
+  cont_thres.upper_y = 100; cont_thres.upper_u = 175; cont_thres.upper_v = 165;
   //
   // for cyberzoo: Y:12-95, U:129-161, V:80-165, turn white.
   //int y1=16;  int u1=129; int v1=80; % cyberzoo, dark

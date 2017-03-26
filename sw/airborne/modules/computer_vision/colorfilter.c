@@ -52,7 +52,7 @@ struct image_t *colorfilter_func(struct image_t *img)
                                        color_cb_min, color_cb_max,
                                        color_cr_min, color_cr_max
                                       );
-
+//color_count = 0;
   return img; // Colorfilter did not make a new image
 }
 
