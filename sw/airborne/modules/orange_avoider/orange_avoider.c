@@ -19,7 +19,7 @@
 #include "generated/flight_plan.h"
 #include "modules/computer_vision/colorfilter.h"
 #include "modules/orange_avoider/orange_avoider.h"
-
+#include "opencv_contour.h"
 #define ORANGE_AVOIDER_VERBOSE TRUE
 
 #define PRINT(string,...) fprintf(stderr, "[orange_avoider->%s()] " string,__FUNCTION__ , ##__VA_ARGS__)
@@ -42,12 +42,40 @@ float maxDistance               = 2.25;
 void orange_avoider_init()
 {
   // Initialise the variables of the colorfilter to accept orange
-  color_lum_min = 0;
+//  color_lum_min = 20;
+//  color_lum_max = 128;
+//  color_cb_min  = 0;
+//  color_cb_max  = 117;
+//  color_cr_min  = 0;
+//  color_cr_max  = 146;
+
+//  color1_lum_min =0;
+//  color1_lum_max = 255;
+//  color1_cb_min  = 0;
+//  color1_cb_max  = 127;
+//  color1_cr_min  = 0;
+//  color1_cr_max  = 141;
+
+  color_lum_min = 20;
   color_lum_max = 255;
-  color_cb_min  = 0;
-  color_cb_max  = 117;
-  color_cr_min  = 0;
-  color_cr_max  = 141;
+  color_cb_min  = 75;
+  color_cb_max  = 145;
+  color_cr_min  = 180;
+  color_cr_max  = 255;
+
+  color1_lum_min = 20;
+  color1_lum_max = 255;
+  color1_cb_min  = 0;
+  color1_cb_max  = 125;
+  color1_cr_min  = 148;
+  color1_cr_max  = 255;
+
+  color2_lum_min =20;
+  color2_lum_max = 255;
+  color2_cb_min  = 124;
+  color2_cb_max  = 130;
+  color2_cr_min  = 124;
+  color2_cr_max  = 130;
   // Initialise random values
   srand(time(NULL));
   chooseRandomIncrementAvoidance();
@@ -60,7 +88,9 @@ void orange_avoider_periodic()
 {
   // Check the amount of orange. If this is above a threshold
   // you want to turn a certain amount of degrees
-  safeToGoForwards = color_count < tresholdColorCount;
+	printf("periodic safeToGo: %d\n",safeToGo);
+  //safeToGoForwards = color_count < tresholdColorCount;
+	safeToGoForwards = safeToGo;
   VERBOSE_PRINT("Color_count: %d  threshold: %d safe: %d \n", color_count, tresholdColorCount, safeToGoForwards);
   float moveDistance = fmin(maxDistance, 0.05 * trajectoryConfidence);
   if(safeToGoForwards){

@@ -44,6 +44,7 @@ struct contour_threshold {
 
 extern struct contour_estimation cont_est;
 extern struct contour_threshold cont_thres;
+extern int safeToGo;
 
 //extern void yuv_opencv_to_yuv422(Mat image, char *img, int width, int height);
 

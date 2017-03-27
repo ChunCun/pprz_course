@@ -35,7 +35,7 @@ using namespace std;
 
 struct contour_estimation cont_est;
 struct contour_threshold cont_thres;
-
+int safeToGO;
 RNG rng(12345);
 
 // YUV in opencv convert to YUV on Bebop
@@ -243,12 +243,14 @@ vector<float> get_point(int num_contours, std::vector<vector<Point> > contours)
 	vector<float> value_y;
 //	    cout<< "sizeof" <<endl;
 //    	cout<< sizeof(contours[num_contours]) <<endl;
-	for (int y = 0; y < contours[num_contours].size() - 4; y++)//!!!!!!
+	if (contours[num_contours].size() > 1)
+	{
+	for (int y = 0; y < contours[num_contours].size() - 2; y++)//!!!!!!
 	{
 
 		y_value[0] = contours[num_contours][y].x;
-		y_value[1] = contours[num_contours][y + 2].x;
-		y_value[2] = contours[num_contours][y + 4].x;
+		y_value[1] = contours[num_contours][y + 1].x;
+		y_value[2] = contours[num_contours][y + 2].x;
 
 
 		//cout << y_value[0] << " "<< y_value[1] << " " << y_value[2] << endl;
@@ -281,6 +283,7 @@ vector<float> get_point(int num_contours, std::vector<vector<Point> > contours)
 		//points_data.push_back (pair_array);
 
 	}
+	}
 //	    cout<< "sizeofPPPPPP" <<endl;
 //    	cout<< sizeof(points_data) <<endl;
 
@@ -310,8 +313,8 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
     	if (var_data > 7)
     	{
     		//int j = 0;
-    		obstacle_data.x = (int)points_data[4*(i+2) + 2];
-    		obstacle_data.y = (int)points_data[4*(i+2) + 3];
+    		obstacle_data.x = (int)points_data[4*(i+1) + 2];
+    		obstacle_data.y = (int)points_data[4*(i+1) + 3];/////2
 
     		obstacle.y=obstacle_data.x;
     		obstacle.x=obstacle_data.y;
@@ -462,7 +465,7 @@ void find_contour(char *img, int width, int height)
   //float epsilon= 0.35;
 
   final_struct safe = judge_go_forward(image,0.4);
-
+  safeToGo = safe.safeToGoForward;
   Point jk;
   jk.x=30;
   jk.y=30;

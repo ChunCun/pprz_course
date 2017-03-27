@@ -89,6 +89,13 @@ void image_switch(struct image_t *a, struct image_t *b);
 void image_to_grayscale(struct image_t *input, struct image_t *output);
 uint16_t image_yuv422_colorfilt(struct image_t *input, struct image_t *output, uint8_t y_m, uint8_t y_M, uint8_t u_m,
                                 uint8_t u_M, uint8_t v_m, uint8_t v_M);
+uint16_t image_yuv422_colorfiltr_new(struct image_t *input, struct image_t *output, uint8_t y0_m, uint8_t y0_M, uint8_t u0_m,
+                               uint8_t u0_M, uint8_t v0_m, uint8_t v0_M, uint8_t y1_m, uint8_t y1_M, uint8_t u1_m,
+                               uint8_t u1_M, uint8_t v1_m, uint8_t v1_M);
+uint16_t image_yuv422_colorfiltr_new3(struct image_t *input, struct image_t *output, uint8_t y0_m, uint8_t y0_M, uint8_t u0_m,
+                               uint8_t u0_M, uint8_t v0_m, uint8_t v0_M, uint8_t y1_m, uint8_t y1_M, uint8_t u1_m,
+                               uint8_t u1_M, uint8_t v1_m, uint8_t v1_M, uint8_t y2_m, uint8_t y2_M, uint8_t u2_m,
+                               uint8_t u2_M, uint8_t v2_m, uint8_t v2_M);
 void image_yuv422_downsample(struct image_t *input, struct image_t *output, uint16_t downsample);
 void image_subpixel_window(struct image_t *input, struct image_t *output, struct point_t *center,
                            uint32_t subpixel_factor, uint8_t border_size);

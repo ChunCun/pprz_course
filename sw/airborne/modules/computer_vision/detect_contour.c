@@ -40,6 +40,8 @@ uint8_t detect_cr_max  = 141;
 
 // Function
 int detect_count = 0;
+int safeToGo=0;
+
 struct image_t *contour_func(struct image_t *img);
 struct image_t *contour_func(struct image_t *img)
 {

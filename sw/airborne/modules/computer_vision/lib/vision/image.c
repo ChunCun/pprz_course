@@ -196,6 +196,130 @@ uint16_t image_yuv422_colorfilt(struct image_t *input, struct image_t *output, u
   return cnt;
 }
 
+
+
+////new filter
+uint16_t image_yuv422_colorfiltr_new(struct image_t *input, struct image_t *output, uint8_t y0_m, uint8_t y0_M, uint8_t u0_m,
+                               uint8_t u0_M, uint8_t v0_m, uint8_t v0_M, uint8_t y1_m, uint8_t y1_M, uint8_t u1_m,
+                               uint8_t u1_M, uint8_t v1_m, uint8_t v1_M)
+{
+ uint16_t cnt = 0;
+ uint8_t *source = input->buf;
+ uint8_t *dest = output->buf;
+
+ // Copy the creation timestamp (stays the same)
+ output->ts = input->ts;
+ printf("s1 \n");
+ // Go trough all the pixels
+ printf("colorfilter_height: %d\n",output->h);
+ printf("colorfilter_width: %d\n",output->w);
+ for (uint16_t y = 0; y < output->h; y++) {
+   for (uint16_t x = 0; x < output->w; x += 2) {
+     // Check if the color is inside the specified values
+
+     if (
+       ((dest[1] >= y0_m)
+       && (dest[1] <= y0_M)
+       && (dest[0] >= u0_m)
+       && (dest[0] <= u0_M)
+       && (dest[2] >= v0_m)
+       && (dest[2] <= v0_M))||((dest[1] >= y1_m)
+    	       && (dest[1] <= y1_M)
+    	       && (dest[0] >= u1_m)
+    	       && (dest[0] <= u1_M)
+    	       && (dest[2] >= v1_m)
+    	       && (dest[2] <= v1_M))
+     ) {
+       cnt ++;
+       // UYVY
+       dest[0] = 64;        // U
+       dest[1] = source[1];  // Y
+       dest[2] = 255;        // V
+       dest[3] = source[3];  // Y
+     } else {
+       // UYVY
+       char u = source[0] - 127;
+       u /= 4;
+       dest[0] = 127;        // U
+       dest[1] = source[1];  // Y
+       u = source[2] - 127;
+       u /= 4;
+       dest[2] = 127;        // V
+       dest[3] = source[3];  // Y
+     }
+
+     // Go to the next 2 pixels
+     dest += 4;
+     source += 4;
+   }
+ }
+ printf("s2 \n");
+ return cnt;
+}
+
+uint16_t image_yuv422_colorfiltr_new3(struct image_t *input, struct image_t *output, uint8_t y0_m, uint8_t y0_M, uint8_t u0_m,
+                               uint8_t u0_M, uint8_t v0_m, uint8_t v0_M, uint8_t y1_m, uint8_t y1_M, uint8_t u1_m,
+                               uint8_t u1_M, uint8_t v1_m, uint8_t v1_M, uint8_t y2_m, uint8_t y2_M, uint8_t u2_m,
+                               uint8_t u2_M, uint8_t v2_m, uint8_t v2_M)
+{
+ uint16_t cnt = 0;
+ uint8_t *source = input->buf;
+ uint8_t *dest = output->buf;
+
+ // Copy the creation timestamp (stays the same)
+ output->ts = input->ts;
+ printf("s1 \n");
+ // Go trough all the pixels
+ printf("colorfilter_height: %d\n",output->h);
+ printf("colorfilter_width: %d\n",output->w);
+ for (uint16_t y = 0; y < output->h; y++) {
+   for (uint16_t x = 0; x < output->w; x += 2) {
+     // Check if the color is inside the specified values
+
+     if (
+       ((dest[1] >= y0_m)
+       && (dest[1] <= y0_M)
+       && (dest[0] >= u0_m)
+       && (dest[0] <= u0_M)
+       && (dest[2] >= v0_m)
+       && (dest[2] <= v0_M))||((dest[1] >= y1_m)
+    	       && (dest[1] <= y1_M)
+    	       && (dest[0] >= u1_m)
+    	       && (dest[0] <= u1_M)
+    	       && (dest[2] >= v1_m)
+    	       && (dest[2] <= v1_M))||((dest[1] >= y2_m)
+    	    	       && (dest[1] <= y2_M)
+    	    	       && (dest[0] >= u2_m)
+    	    	       && (dest[0] <= u2_M)
+    	    	       && (dest[2] >= v2_m)
+    	    	       && (dest[2] <= v2_M))
+     ) {
+       cnt ++;
+       // UYVY
+       dest[0] = 64;        // U
+       dest[1] = source[1];  // Y
+       dest[2] = 255;        // V
+       dest[3] = source[3];  // Y
+     } else {
+       // UYVY
+       char u = source[0] - 127;
+       u /= 4;
+       dest[0] = 127;        // U
+       dest[1] = source[1];  // Y
+       u = source[2] - 127;
+       u /= 4;
+       dest[2] = 127;        // V
+       dest[3] = source[3];  // Y
+     }
+
+     // Go to the next 2 pixels
+     dest += 4;
+     source += 4;
+   }
+ }
+ printf("s2 \n");
+ return cnt;
+}
 /**
 * Simplified high-speed low CPU downsample function without averaging
 *  downsample factor must be 1, 2, 4, 8 ... 2^X

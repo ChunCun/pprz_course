@@ -41,6 +41,23 @@ extern uint8_t color_cb_max;
 extern uint8_t color_cr_min;
 extern uint8_t color_cr_max;
 
+extern uint8_t color1_lum_min;
+extern uint8_t color1_lum_max;
+
+extern uint8_t color1_cb_min;
+extern uint8_t color1_cb_max;
+
+extern uint8_t color1_cr_min;
+extern uint8_t color1_cr_max;
+
+extern uint8_t color2_lum_min;
+extern uint8_t color2_lum_max;
+
+extern uint8_t color2_cb_min;
+extern uint8_t color2_cb_max;
+
+extern uint8_t color2_cr_min;
+extern uint8_t color2_cr_max;
 extern int color_count;
 
 extern struct video_listener *listener;
