@@ -313,8 +313,10 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
     	if (var_data > 7)
     	{
     		//int j = 0;
+
     		obstacle_data.x = (int)points_data[4*(i+1) + 2];
     		obstacle_data.y = (int)points_data[4*(i+1) + 3];/////2
+
 
     		obstacle.y=obstacle_data.x;
     		obstacle.x=obstacle_data.y;
@@ -349,7 +351,9 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	{
 //		cout << "2" << endl;
 		double ret = contourArea(imgdata.contours[x]);
+
 		if(ret < 1000)
+
 		{
 //			cout << "3" << endl;
 //			// drawContours(imgdata.thres2, imgdata.contours[x], -1, (0, 0, 0), 25 );
@@ -369,8 +373,10 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 
 	}
 
+
 	int  width_image = img.size().width;//520
 	int length_image = img.size().height;//width 240
+
 	printf("size.height : %d\n",width_image);
 	printf("size.width : %d\n",length_image);
 //	for(int k = 0; k < contour_to_use.size(); k++)
@@ -464,6 +470,7 @@ void find_contour(char *img, int width, int height)
   /// Find contours
   //float epsilon= 0.35;
 
+
   final_struct safe = judge_go_forward(image,0.4);
   safeToGo = safe.safeToGoForward;
   Point jk;
@@ -480,6 +487,7 @@ void find_contour(char *img, int width, int height)
 //  jk2.y=0;
 //  circle (safe.img, jk2, 10, Scalar(255, 255, 255), -1 );
 //  putText(safe.img,"(100,0)",jk2,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+
 //  Point jk3;
 //  jk3.x=height;
 //  jk3.y=width;
@@ -497,6 +505,7 @@ void find_contour(char *img, int width, int height)
 //  jk5.y=100;
 //  circle (safe.img, jk5, 10, Scalar(255, 255, 255), -1 );
 //  putText(safe.img,"(200,100)",jk,FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0));
+
 
   if(safe.safeToGoForward == true)
   {
