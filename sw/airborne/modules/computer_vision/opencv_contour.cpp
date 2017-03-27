@@ -299,7 +299,7 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
 
 	//vector<vector<Point> > obstacle_data;
  	Point obstacle_data;
-
+ 	Point obstacle;
 	for ( int i = 0; i < n  ; i = i + 1 )
 	{
 //		cout<< "points_data[4*i]" <<endl;
@@ -307,16 +307,19 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
     	int var_data = (int)points_data [4*i];
 //    	cout<< "var_data" <<endl;
 //    	cout<< var_data <<endl;
-    	if (var_data > 15)
+    	if (var_data > 40)
     	{
     		//int j = 0;
     		obstacle_data.x = (int)points_data[4*(i+2) + 2];
     		obstacle_data.y = (int)points_data[4*(i+2) + 3];
+
+    		obstacle.y=obstacle_data.x;
+    		obstacle.x=obstacle_data.y;
   			//j++;
     		printf("obstacle_data.x : %d\n",obstacle_data.x );
     		printf("obstacle_data.y : %d\n",obstacle_data.y );
-    		circle (img, obstacle_data, 10, Scalar(0, 255, 255), -1 );
-
+    		circle (img, obstacle_data, 3, Scalar(0, 255, 255), -1 );
+    		//circle (img, obstacle, 10, Scalar(0, 255, 255), -1 );
     		//obstacle_position
     		obstacle_position.push_back(obstacle_data.x);
     		obstacle_position.push_back(obstacle_data.y);
@@ -343,7 +346,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	{
 //		cout << "2" << endl;
 		double ret = contourArea(imgdata.contours[x]);
-		if(ret < 1000)
+		if(ret < 2000)
 		{
 //			cout << "3" << endl;
 //			// drawContours(imgdata.thres2, imgdata.contours[x], -1, (0, 0, 0), 25 );
@@ -395,6 +398,12 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	int p = 0;
 	int number_all_points_count = 0;
 
+	if(contour_to_use.size()==0)
+	{
+		safe_or_not.safeToGoForward = true;
+	}
+	else
+	{
 	for (int y=0 ; y < contour_to_use.size() ; y ++)
 	{
 		contour_in_process = imgdata.contours [contour_to_use[y]];
@@ -430,7 +439,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	}
 
 	}
-
+	}
 
 	safe_or_not.img=img;
 	return safe_or_not;
@@ -452,7 +461,7 @@ void find_contour(char *img, int width, int height)
   /// Find contours
   //float epsilon= 0.35;
 
-  final_struct safe = judge_go_forward(image,0.35);
+  final_struct safe = judge_go_forward(image,0.45);
 
   Point jk;
   jk.x=30;
