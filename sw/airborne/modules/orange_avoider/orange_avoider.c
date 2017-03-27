@@ -42,12 +42,12 @@ float maxDistance               = 2.25;
 void orange_avoider_init()
 {
   // Initialise the variables of the colorfilter to accept orange
-  color_lum_min = 20;
+  color_lum_min = 0;
   color_lum_max = 255;
-  color_cb_min  = 75;
-  color_cb_max  = 145;
-  color_cr_min  = 167;
-  color_cr_max  = 255;
+  color_cb_min  = 0;
+  color_cb_max  = 117;
+  color_cr_min  = 0;
+  color_cr_max  = 141;
   // Initialise random values
   srand(time(NULL));
   chooseRandomIncrementAvoidance();

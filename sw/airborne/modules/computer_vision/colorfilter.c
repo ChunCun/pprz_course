@@ -32,12 +32,12 @@
 struct video_listener *listener = NULL;
 
 // Filter Settings
-uint8_t color_lum_min = 105;
-uint8_t color_lum_max = 205;
-uint8_t color_cb_min  = 52;
-uint8_t color_cb_max  = 140;
-uint8_t color_cr_min  = 180;
-uint8_t color_cr_max  = 255;
+uint8_t color_lum_min =0;
+uint8_t color_lum_max = 255;
+uint8_t color_cb_min  = 0;
+uint8_t color_cb_max  = 127;
+uint8_t color_cr_min  = 0;
+uint8_t color_cr_max  = 141;
 
 // Result
 int color_count = 0;

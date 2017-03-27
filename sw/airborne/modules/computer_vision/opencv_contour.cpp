@@ -243,12 +243,12 @@ vector<float> get_point(int num_contours, std::vector<vector<Point> > contours)
 	vector<float> value_y;
 //	    cout<< "sizeof" <<endl;
 //    	cout<< sizeof(contours[num_contours]) <<endl;
-	for (int y = 0; y < contours[num_contours].size() - 2; y++)//!!!!!!
+	for (int y = 0; y < contours[num_contours].size() - 4; y++)//!!!!!!
 	{
 
-		y_value[0] = contours[num_contours][y].y;
-		y_value[1] = contours[num_contours][y + 1].y;
-		y_value[2] = contours[num_contours][y + 2].y;
+		y_value[0] = contours[num_contours][y].x;
+		y_value[1] = contours[num_contours][y + 2].x;
+		y_value[2] = contours[num_contours][y + 4].x;
 
 
 		//cout << y_value[0] << " "<< y_value[1] << " " << y_value[2] << endl;
@@ -307,7 +307,7 @@ vector<int> draw_obstacle(vector<float> points_data, Mat &img)
     	int var_data = (int)points_data [4*i];
 //    	cout<< "var_data" <<endl;
 //    	cout<< var_data <<endl;
-    	if (var_data > 40)
+    	if (var_data > 7)
     	{
     		//int j = 0;
     		obstacle_data.x = (int)points_data[4*(i+2) + 2];
@@ -346,7 +346,7 @@ final_struct judge_go_forward(Mat &img, float epsilon)
 	{
 //		cout << "2" << endl;
 		double ret = contourArea(imgdata.contours[x]);
-		if(ret < 2000)
+		if(ret < 1000)
 		{
 //			cout << "3" << endl;
 //			// drawContours(imgdata.thres2, imgdata.contours[x], -1, (0, 0, 0), 25 );
@@ -461,7 +461,7 @@ void find_contour(char *img, int width, int height)
   /// Find contours
   //float epsilon= 0.35;
 
-  final_struct safe = judge_go_forward(image,0.45);
+  final_struct safe = judge_go_forward(image,0.4);
 
   Point jk;
   jk.x=30;
